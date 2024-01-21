@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>男女識別AIアプリ</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<header>
+  <div class="container">
+    <div class="header-left">
+      男女識別AIアプリケーション
+    </div>
+  </div>
+</header>
+
+<body>
+  <div class="heading">
+      <h1>ファイルをアップロードして判定しよう！</h1>
+  </div>
+  <form method = post enctype = multipart/form-data>
+    <p><input type=file name=file>
+      <input type=submit value=Upload>
+  </form>
+</body>
+</html>
