@@ -2,22 +2,22 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>男女識別AIアプリ</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="style.css">
+  <title>my ML Project</title>
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <header>
   <div class="container">
     <div class="header-left">
-      男女識別AIアプリケーション
+      <h1>Machine Learning side project</h1>
     </div>
   </div>
 </header>
 
 <body>
   <div class="heading">
-      <h1>ファイルをアップロードして判定しよう！</h1>
+      Upload a image of your face.
   </div>
   <form method = post enctype = multipart/form-data>
     <p><input type=file name=file>
