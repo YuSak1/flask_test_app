@@ -27,19 +27,21 @@ def allowed_file(filename):
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
-            flash('ファイルがありません')
+            flash('File not found')
             return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
-            flash('ファイルがありません')
+            flash('File not found')
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+            # file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+            file.save(os.path.join(UPLOAD_FOLDER,filename))
 
             #ファイルを識別器に渡して答えを返す。学習済みの識別器は.h5が拡張子
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'],filename)
-            model = load_model('./model_weight/man_woman_cnn.h5')
+            # filepath = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+            filepath = os.path.join(UPLOAD_FOLDER,filename)
+            model = load_model('./model_weight/man_woman_cnn.h5', compile=False)
 
             image = Image.open(filepath)
             image = image.convert('RGB')
@@ -53,8 +55,8 @@ def upload_file():
             predicted = result.argmax()
             percentage = float(result[predicted] * 100)
 
-            resultmsg = "ラベル： " + classes[predicted] + ", 確率："+ str(percentage) + " %"
-            return render_template('kekka.html', resultmsg=resultmsg, filepath=filepath)
+            resultmsg =  str(percentage) + " %   " + classes[predicted]
+            return render_template('result.html', resultmsg=resultmsg, filepath=filepath)
 
     return render_template('index.html')
 
