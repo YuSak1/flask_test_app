@@ -3,25 +3,29 @@
 <head>
   <meta charset="utf-8">
   <title>my ML Project</title>
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <header>
-  <div class="container">
-    <div class="header-left">
-      <h1>Machine Learning side project</h1>
+  <div style="text-align: center">
+    <div class="container">
+      <div class="header-left">
+        <h1>Machine Learning side project</h1>
+      </div>
     </div>
   </div>
 </header>
 
 <body>
-  <div class="heading">
-      Upload a image of your face.
+  <div style="text-align: center">
+    <div class="heading">
+        Upload a image of your face.
+    </div>
+    <br>
+    <form method = post enctype = multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value="Upload">
+    </form>
   </div>
-  <form method = post enctype = multipart/form-data>
-    <p><input type=file name=file>
-      <input type=submit value=Upload>
-  </form>
 </body>
 </html>
