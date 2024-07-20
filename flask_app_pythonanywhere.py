@@ -41,7 +41,7 @@ def upload_file():
             # filename = secure_filename(file.filename)
             # file.save(os.path.join(UPLOAD_FOLDER,filename))
             # filepath = os.path.join(UPLOAD_FOLDER,filename)
-            model = load_model('model_weight/man_woman_cnn_v3.h5', compile=False)
+            model = load_model('/home/YuuS/mysite/model_weight/man_woman_cnn_v3.h5', compile=False)
 
             # image = Image.open(filepath)
             image_original = Image.open(file)
@@ -70,7 +70,7 @@ def upload_file():
             # print("Image is deleted.")
 
             # Create feature map images
-            model_visualize = load_model('model_weight/man_woman_cnn_v3_visualize.h5', compile=False)
+            model_visualize = load_model('/home/YuuS/mysite/model_weight/man_woman_cnn_v3_visualize.h5', compile=False)
             features = model_visualize.predict([X])
 
             # for i in range(0,16):
@@ -89,19 +89,19 @@ def upload_file():
 
             #process image for showing
             buf = BytesIO()
-            image_original.save(buf,format="png")  
+            image_original.save(buf,format="png")
             # バイナリデータをbase64でエンコードし、それをさらにutf-8でデコードしておく
-            img_b64str = base64.b64encode(buf.getvalue()).decode("utf-8") 
+            img_b64str = base64.b64encode(buf.getvalue()).decode("utf-8")
             # image要素のsrc属性に埋め込めこむために、適切に付帯情報を付与する
-            img_b64data = "data:image/png;base64,{}".format(img_b64str) 
+            img_b64data = "data:image/png;base64,{}".format(img_b64str)
 
             #feature image
             with BytesIO() as f:
                 plt.savefig(f, format='jpg')
                 buf = f.getvalue()
 
-            feature_b64str = base64.b64encode(buf).decode("utf-8") 
-            feature_b64data = "data:image/png;base64,{}".format(feature_b64str) 
+            feature_b64str = base64.b64encode(buf).decode("utf-8")
+            feature_b64data = "data:image/png;base64,{}".format(feature_b64str)
 
             return render_template('result.html', resultmsg=resultmsg, face_img=img_b64data, feature_img=feature_b64data)
 
