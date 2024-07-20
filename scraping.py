@@ -3,13 +3,12 @@ from urllib.request import urlretrieve
 from pprint import pprint
 import os, time , sys
 
-#APIキーの情報
-
+#API key
 key="write your Key numbers"
 secret = "secret key"
 wait_time = 1
 
-#保存フォルダの指定
+#Folder to save
 search_name = sys.argv[1]
 savedir = "./" + search_name
 
@@ -25,7 +24,6 @@ result = flickr.photos.search(
 
 photos = result['photos']
 #pprint(photos)
-
 
 for i,photo in enumerate(photos['photo']):
     url_q = photo['url_q']

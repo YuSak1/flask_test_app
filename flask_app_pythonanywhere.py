@@ -1,6 +1,6 @@
 # import os
 from flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory
-from werkzeug.utils import secure_filename#ファイル名をチェックする関数
+from werkzeug.utils import secure_filename
 from keras.models import load_model
 from PIL import Image
 # import keras
@@ -10,11 +10,9 @@ import base64
 from io import BytesIO
 
 
-#ラベル名、識別するクラス数、リサイズ後の画像サイズ指定
 classes = ["man","woman"]
 num_classes = len(classes)
 image_size = 80
-
 
 UPLOAD_FOLDER = './saved_images/uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'gif'])
@@ -23,11 +21,9 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
-    #ファイル名に拡張子が存在するか,判定ALLOWED_EXTENSIONSで定義した拡張子であるかを判定
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
-#TOPにルーティングした際の処理
-@app.route('/', methods=['GET','POST'])#GETとPOSTのみ受け取る
+@app.route('/', methods=['GET','POST'])
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -90,9 +86,7 @@ def upload_file():
             #process image for showing
             buf = BytesIO()
             image_original.save(buf,format="png")
-            # バイナリデータをbase64でエンコードし、それをさらにutf-8でデコードしておく
             img_b64str = base64.b64encode(buf.getvalue()).decode("utf-8")
-            # image要素のsrc属性に埋め込めこむために、適切に付帯情報を付与する
             img_b64data = "data:image/png;base64,{}".format(img_b64str)
 
             #feature image
@@ -109,7 +103,6 @@ def upload_file():
 
 # from flask import send_from_directory
 
-#画像を受け取ってからの処理
 # @app.route('/saved_images/uploads/<filename>')
 # def uploaded_file(filename):
 #     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
